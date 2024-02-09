@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Amerikano Barebones</title>
+</head>
+<body>
+    <h1 class="centered">Amerikano Alpha Build 1.0.1 (Rooms Update) </h1>
+    <p  class="centered" id="waitingCount" >Players on server= 0</p> 
+    
+    <div class="centered" id="roomjoinDiv" >
+        <p>Enter a room / Create a new room</p>
+        <label for="username">Username:</label>
+        <input class="input" type="text" id="username" ><br><br>
+        <label for="room">Room id: </label>
+        <input class="input" type="text" id="room" ><br><br>
+        <button id="joinroomButton" > join room</button><br><br><br><br><br>
+
+        <p>Rejoin a game</p>
+        <label for="rejoinUsername">Username:</label>
+        <input class="input" type="text" id="rejoinUsername" ><br><br>
+        <button id="rejoinroomButton" > rejoin</button>
+    </div>
+    
+    <div id="dropdownDiv" class="dropdown">
+        <button onclick="openDropdown()" class="dropbtn">Removed Items</button>
+        <div id="removedMenu" class="dropdown-content"></div>
+    </div>
+    
+    <div class="roomsContainer">
+        <p id="roomIDDisplay">You are playing in room: </p>
+        <p id="roomPlayerCount" >Players in this room = 0</p> 
+        <p id="nameNpnoDisplay" ></p> 
+        <p id="turnDisplay">Player 1's turn</p>
+        <div class="roomChat" id="chat" >
+            //TODO chat
+        </div>
+    </div>
+    
+    
+    <div class="roomsContainer" id="roomsDisplay">
+        <p>Current rooms:</p>
+    </div>
+
+    
+
+    <div id="buttonsNpilesDiv" >
+        <label for="pile1">Player1 Dump Pile </label>
+        <div id="pile1"  class="container1  dump-container" width="40" height="70"></div>
+        <label for="pile2">Player2 Dump Pile </label>
+        <div id="pile2"  class="container1  dump-container" width="40" height="70"></div>
+        <label for="pile3">Player3 Dump Pile </label>
+        <div id="pile3"  class="container1  dump-container" width="40" height="70"></div>
+        <label for="pile4">Player4 Dump Pile </label>
+        <div id="pile4"  class="container1  dump-container" width="40" height="70"></div>
+        <button id="getCard"            class="topbtn" >get card</button>
+        <button id="getStartingCards"   class="topbtn" >get starting cards</button>
+        <button id="getDivider"         class="topbtn" onclick="appendDivider()">get divider</button>
+        <button id="openTopHand"        class="topbtn" >open top hand</button>
+        <button id="changeBotTopHand"   class="topbtn" onclick="changeHand()">change Bot/Top hand</button>
+    </div>
+
+    <div id="mateTable" class="container2 container"> 
+      
+        
+    </div>
+    <div id="leftTable" class="container2 container">
+        
+        
+    </div>
+    <div id="rightTable" class="container2 container">
+        
+        
+    </div>
+    <div id="yourTable" class="container2 container"> 
+       
+    </div>
+    
+
+
+
+   
+    <div id="handTop" class="container">
+        
+        
+    </div>
+    <div id="divider" class="divider"></div>
+    <div id="handBot" class="container">
+    
+    </div>  
+    <div id="divider" class="divider"></div>
+    
+
+
+
+
+    
+    
+
+    
+    <script>
+        const draggables = document.querySelectorAll('.draggable');
+        const containers= document.querySelectorAll('.container');
+        const container3s= document.querySelectorAll('.container3');
+
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', () =>{
+                draggable.classList.add('dragging');
+            })
+            draggable.addEventListener('dragend', () =>{
+                draggable.classList.remove('dragging');
+            })
+        });
+        
+        containers.forEach(container => {
+            container.addEventListener('dragover', e => {
+                e.preventDefault();
+                const afterElement = getDragAfterElement(container, e.clientX);
+                const draggable = document.querySelector('.dragging');
+                
+                if(afterElement == null) {
+                    container.appendChild(draggable);
+                } else {
+                    container.insertBefore(draggable,afterElement)
+                }
+                
+            })
+        });
+        
+        function getDragAfterElement(container, x) {
+        const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')]; 
+        
+
+            return draggableElements.reduce((closest, child)=> {
+                const box = child.getBoundingClientRect();
+                const offset = x - box.left - box.width/2 ;
+                if(offset < 0 && offset > closest.offset ) {
+                    return {offset: offset, element: child}
+                } else {
+                    return closest
+                }
+            }, {offset: Number.NEGATIVE_INFINITY}).element;
+        }
+    </script>
+
+    <script>
+        function openDropdown() {
+        document.getElementById("removedMenu").classList.toggle("show");
+        }
+        window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+<script>
+    document.getElementById("dropdownDiv").style.visibility = "hidden"
+    document.getElementById("buttonsNpilesDiv").style.visibility = "hidden"
+    document.getElementById("roomPlayerCount").style.visibility ="hidden"
+    document.getElementById("roomIDDisplay").style.visibility="hidden"
+    document.getElementById("turnDisplay").style.visibility="hidden"
+
+    document.querySelectorAll(".divider").forEach(divider => {
+        divider.style.visibility = "hidden"
+    })
+
+    document.querySelectorAll('.container').forEach(container =>{
+        container.style.visibility = "hidden"
+    })
+
+
+    function appendDivider() {
+        var node = document.createElement("img")
+        node.src = "images/divider.png"
+        node.classList.add("draggable")
+        node.draggable = true;
+        node.addEventListener('dragstart', () =>{
+            node.classList.add('dragging');
+        })
+        node.addEventListener('dragend', () =>{
+            node.classList.remove('dragging');
+        })
+        document.getElementById("handTop").appendChild(node)
+        
+    }
+
+
+    function changeHand() {
+        const firstChildren   = document.getElementById("handTop").children;
+        const x = firstChildren.length;
+
+        const secondChildren  = document.getElementById("handBot").children;
+        const y = secondChildren.length;
+
+        for(var i = 0; i < x; i++) {
+            document.getElementById("handBot").append(firstChildren[0])
+        }
+        for(var i = 0; i < y; i++) {
+            document.getElementById("handTop").append(secondChildren[0])
+        }
+    }       
+
+</script>
+
+
+<script src ="/socket.io/socket.io.js"></script>
+<script src = "amerikano.js"></script>
+</body>
+</html>

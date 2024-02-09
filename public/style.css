@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    background-color: rgb(35, 114, 41);
+}
+
+.container {
+    
+    background-color: rgb(157, 90, 8);
+    padding: 1rem;
+    height: 64px;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.container1 {
+    padding: 0.4rem;
+    height: 64px;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    background-color: rgb(61, 64, 53);
+    width: 32px;
+}
+
+.divider {
+    background-color: black;
+    height: 3px;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    
+}
+
+.container2 {
+    padding: 0.4rem;
+    padding-left: 1rem;
+    background-color: rgb(10, 95, 1);
+}
+
+.topbtn {
+    height:40px;
+    background-color: #3498DB;
+}
+
+.input {
+    background-color: #435460;
+}
+
+
+.draggable {
+    
+    background-color: 
+    rgb(0, 0, 0);
+    margin-right: 0.4rem;
+    cursor: move;
+}
+
+.dragging {
+    
+    background-color: rgb(216, 188, 188);
+    border: 1px;
+    cursor: move;
+    opacity: .5;
+}
+
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dump-container{
+    display:inline-block;
+    padding: 0.4rem;
+    height: 64px;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    width: 32px;
+}
+
+.centered {
+    padding: 0.4rem;
+    text-align: center;
+}
+
+.roomsDisplay {
+    background-color:darkgreen ;
+    padding: 0.1rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: block;
+    width: 7rem;
+    color: aliceblue;
+    float:left;
+}
+
+.roomsContainer {
+    padding: 0.1rem;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.messageContainer {
+    padding: 0.1rem;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+
+
+.show {display:block;}
